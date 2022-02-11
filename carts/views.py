@@ -59,7 +59,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
         for item in cart_items:
             total += item.product.price * item.quantity
             quantity += item.quantity
-    except ObjectNotExist:
+    except cart.DoesNotExist:
         pass
     
     tax = round(((1.13 * total) / 100), 2)
