@@ -8,6 +8,7 @@
       <aside class="col-lg-9">
         <div class="card">
           <table class="table table-borderless table-shopping-cart">
+            {%if cart_items%}
             <thead class="text-muted">
               <tr class="small text-uppercase">
                 <th scope="col">Product</th>
@@ -16,6 +17,15 @@
                 <th scope="col" class="text-right" width="200"></th>
               </tr>
             </thead>
+            {%else%}
+
+            <thead class="text-muted">
+              <tr class="small text-uppercase">
+                <th scope="col">Cart is currently empty...</th>
+              </tr>
+            </thead>
+
+            {%endif%}
             <tbody>
               {% for item in cart_items %}
               <tr>
