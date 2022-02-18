@@ -54,18 +54,18 @@ def register(request):
     return render(request, 'accounts/register.html', context)
 
 def login(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        #username = Account.objects.get(email=email).username
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
 
         user = auth.authenticate(email=email, password=password)
-        print(user)
+
         if user is not None:
             try:
                 cart = Cart.objects.get(cart_id=_cart_id(request))
                 is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
                 if is_cart_item_exists:
+                    
                     cart_item = CartItem.objects.filter(cart=cart)
 
                     # Getting the product variations by cart id
@@ -102,12 +102,20 @@ def login(request):
             except:
                 pass
             auth.login(request, user)
-            messages.success(request, "Login successful.")
-            return redirect('dashboard')
+            messages.success(request, 'You are now logged in.')
+            url = request.META.get('HTTP_REFERER')
+            try:
+                query = request.utils.urlparse(url).query
+                # next=/cart/checkout/
+                params = dict(x.split('=') for x in query.split('&'))
+                if 'next' in params:
+                    nextPage = params['next']
+                    return redirect(nextPage)                
+            except:
+                return redirect('dashboard')
         else:
-            messages.error(request, "Invalid login credentials.")
+            messages.error(request, 'Invalid login credentials')
             return redirect('login')
-
     return render(request, 'accounts/login.html')
 
 @login_required(login_url = 'login') 
