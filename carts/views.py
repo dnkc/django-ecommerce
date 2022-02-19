@@ -18,7 +18,7 @@ def add_cart(request, product_id):
     # If the user is authenticated
     product_variation = []
     if current_user.is_authenticated:
-        print('user authenticated')
+        #print('user authenticated')
         if request.method == 'POST':
             for item in request.POST:
                 key = item
