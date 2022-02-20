@@ -11,50 +11,53 @@
             <strong class="d-inline-block mr-3">Edit Your Profile </strong>
           </header>
           <div class="card-body">
+            <div class="text-right">
+              <img src="{{userprofile.profile_picture.url}}" alt="profile picture" width="100" style="border-radius: 50%">
+            </div>
             <div class="row">
           <div class="col-md-12">
-            <form action="" method="POST">
+            <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>First Name</label>
-                  <input class="form-control" type="text" name="" id="">
+                  {{user_form.first_name}}
                 </div>
                 <div class="form-group col-md-6">
                   <label>Last Name</label>
-                  <input class="form-control" type="text" name="" id="">
+                  {{user_form.last_name}}
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Phone Number</label>
-                  <input class="form-control" type="text" name="" id="">
+                  {{user_form.phone_number}}
                 </div>
                 <div class="form-group col-md-6">
                   <label>Profile Picture</label>
-                  <input class="form-control" type="file" name="" id="">
+                  {{profile_form.profile_picture}}
                 </div>
               </div>
               <div class="form-group">
                 <label>Address Line 1</label>
-                  <input class="form-control" type="text" name="" id="">
+                {{profile_form.address_line_1}}
               </div>
               <div class="form-group">
                 <label>Address Line 2</label>
-                  <input class="form-control" type="text" name="" id="">
+                {{profile_form.address_line_2}}
               </div>
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label>City</label>
-                  <input class="form-control" type="text" name="" id="">
+                  {{profile_form.city}}
                 </div>
                 <div class="form-group col-md-4">
                   <label>State</label>
-                  <input class="form-control" type="text" name="" id="">
+                  {{profile_form.state}}
                 </div>
                 <div class="form-group col-md-4">
                   <label>Country</label>
-                  <input class="form-control" type="text" name="" id="">
+                  {{profile_form.country}}
                 </div>
               </div>
               <input type="submit" value="Save Edit" class="btn btn-primary">
